@@ -11,12 +11,8 @@ pub enum LogLevel {
 }
 /// primary function for emitting logs
 pub fn log(level: LogLevel, message: &str) -> String {
-    let log_level = match level {
-        LogLevel::Error => "[ERROR]: ".to_owned(),
-        LogLevel::Warning => "[WARNING]: ".to_owned(),
-        LogLevel::Info => "[INFO]: ".to_owned(),
-    };
-    log_level + &*message.to_owned()
+    let level = format!("{:?}", level);
+    format!("[{}]: {}", level.to_uppercase(), message)
 }
 pub fn info(message: &str) -> String {
     log(LogLevel::Info, message)
