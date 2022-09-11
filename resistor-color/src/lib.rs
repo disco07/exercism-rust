@@ -1,52 +1,37 @@
 extern crate core;
 
 use crate::ResistorColor::*;
+use enum_iterator::IntoEnumIterator;
+use int_enum::IntEnum;
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, IntoEnumIterator, Copy, Clone, IntEnum, PartialEq, Eq)]
+#[repr(usize)]
 pub enum ResistorColor {
-    Black,
-    Blue,
-    Brown,
-    Green,
-    Grey,
-    Orange,
-    Red,
-    Violet,
-    White,
-    Yellow,
+    Black = 0,
+    Blue = 6,
+    Brown = 1,
+    Green = 5,
+    Grey = 8,
+    Orange = 3,
+    Red = 2,
+    Violet = 7,
+    White = 9,
+    Yellow = 4,
 }
 
 pub fn color_to_value(_color: ResistorColor) -> u32 {
-    unimplemented!("convert a color into a numerical representation")
+    _color as u32
 }
 
 pub fn value_to_color_string(value: u32) -> String {
-    let color = colors().get((value as usize));
-    match color {
-        Some(x) => x.to_string(),
-        None => panic!("Index not found"),
+    if value >= (colors().len() as u32) {
+        return String::from("value out of range");
     }
+
+    format!("{:?}", ResistorColor::from_int(value).unwrap())
 }
 
 pub fn colors() -> Vec<ResistorColor> {
     let mut vec: Vec<ResistorColor> = vec![Black, Brown, Red, Orange, Yellow, Green, Blue, Violet, Grey, White];
     vec
-}
-
-impl ToString for ResistorColor {
-    fn to_string(&self) -> String {
-        match self {
-            Black => "Black".to_string(),
-            Brown => "Brown".to_string(),
-            Red => "Red".to_string(),
-            Orange => "Orange".to_string(),
-            Yellow => "Yellow".to_string(),
-            Green => "Green".to_string(),
-            Blue => "Blue".to_string(),
-            Violet => "Violet".to_string(),
-            Grey => "Grey".to_string(),
-            White => "White".to_string(),
-            _ => panic!("enum not find"),
-        }
-    }
 }
