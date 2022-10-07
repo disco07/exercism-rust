@@ -1,22 +1,20 @@
 extern crate core;
 
 use crate::ResistorColor::*;
-use enum_iterator::IntoEnumIterator;
-use int_enum::IntEnum;
 
-#[derive(Debug, IntoEnumIterator, Copy, Clone, IntEnum, PartialEq, Eq)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 #[repr(usize)]
 pub enum ResistorColor {
     Black = 0,
-    Blue = 6,
     Brown = 1,
-    Green = 5,
-    Grey = 8,
-    Orange = 3,
     Red = 2,
-    Violet = 7,
-    White = 9,
+    Orange = 3,
     Yellow = 4,
+    Green = 5,
+    Blue = 6,
+    Violet = 7,
+    Grey = 8,
+    White = 9,
 }
 
 pub fn color_to_value(_color: ResistorColor) -> u32 {
