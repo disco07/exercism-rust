@@ -1,22 +1,27 @@
 extern crate core;
 
+use std::fmt::{Display, Formatter};
 use crate::ResistorColor::*;
-use enum_iterator::IntoEnumIterator;
-use int_enum::IntEnum;
 
-#[derive(Debug, IntoEnumIterator, Copy, Clone, IntEnum, PartialEq, Eq)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 #[repr(usize)]
 pub enum ResistorColor {
     Black = 0,
-    Blue = 6,
     Brown = 1,
-    Green = 5,
-    Grey = 8,
-    Orange = 3,
     Red = 2,
-    Violet = 7,
-    White = 9,
+    Orange = 3,
     Yellow = 4,
+    Green = 5,
+    Blue = 6,
+    Violet = 7,
+    Grey = 8,
+    White = 9,
+}
+
+impl Display for ResistorColor {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:?}", self)
+    }
 }
 
 pub fn color_to_value(_color: ResistorColor) -> u32 {
@@ -24,14 +29,13 @@ pub fn color_to_value(_color: ResistorColor) -> u32 {
 }
 
 pub fn value_to_color_string(value: u32) -> String {
-    if value >= (colors().len() as u32) {
+    if value > colors().len() as u32 {
         return String::from("value out of range");
     }
-
-    format!("{:?}", ResistorColor::from_int(value).unwrap())
+    colors().get(value as usize).unwrap().to_string()
 }
 
 pub fn colors() -> Vec<ResistorColor> {
-    let mut vec: Vec<ResistorColor> = vec![Black, Brown, Red, Orange, Yellow, Green, Blue, Violet, Grey, White];
+    let vec: Vec<ResistorColor> = vec![Black, Brown, Red, Orange, Yellow, Green, Blue, Violet, Grey, White];
     vec
 }
