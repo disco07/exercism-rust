@@ -1,5 +1,6 @@
 extern crate core;
 
+use std::fmt::{Display, Formatter};
 use crate::ResistorColor::*;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
@@ -17,19 +18,24 @@ pub enum ResistorColor {
     White = 9,
 }
 
+impl Display for ResistorColor {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+
 pub fn color_to_value(_color: ResistorColor) -> u32 {
     _color as u32
 }
 
 pub fn value_to_color_string(value: u32) -> String {
-    if value >= (colors().len() as u32) {
+    if value > colors().len() as u32 {
         return String::from("value out of range");
     }
-
-    format!("{:?}", ResistorColor::from_int(value).unwrap())
+    colors().get(value as usize).unwrap().to_string()
 }
 
 pub fn colors() -> Vec<ResistorColor> {
-    let mut vec: Vec<ResistorColor> = vec![Black, Brown, Red, Orange, Yellow, Green, Blue, Violet, Grey, White];
+    let vec: Vec<ResistorColor> = vec![Black, Brown, Red, Orange, Yellow, Green, Blue, Violet, Grey, White];
     vec
 }
