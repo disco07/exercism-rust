@@ -41,7 +41,8 @@ impl Player {
                 if x < mana_cost {
                     0
                 } else {
-                    x - mana_cost
+                    self.mana = Some(x - mana_cost);
+                    2*mana_cost
                 }
             }
             _ => 0
