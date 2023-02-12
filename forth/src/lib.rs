@@ -1,9 +1,25 @@
 use std::{fmt};
+use std::collections::HashMap;
 
 pub type Value = i32;
 pub type Result = std::result::Result<(), Error>;
 
-pub struct Forth;
+pub struct Forth{
+    stack : Vec<Value>,
+    definitions : HashMap<String, Vec<String>>,
+}
+
+pub enum ForthWord {
+    Number(Value),
+    AddOp,
+    SubOp,
+    MultOp,
+    DivOp,
+    DupOp,
+    DropOp,
+    SwapOp,
+    OverOp,
+}
 
 #[derive(Debug, PartialEq, Eq)]
 pub enum Error {
